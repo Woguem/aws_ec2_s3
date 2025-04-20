@@ -19,6 +19,10 @@ class IrisFeatures(BaseModel):
     petal_length: float
     petal_width: float
 
+@app.get(/)
+def read_root_salutation():
+	return{"Hello welcome to my API build with FastAPI."}
+
 @app.get("/")
 def read_root():
     return {"msg": "Iris classifier is up and running!"}
@@ -44,8 +48,9 @@ def upload_data(file: UploadFile = File(...)):
     return {"status": "Uploaded to S3"}
 
 @app.post("/retrain")
-def retrain():
+def retrain(model_type : str = "random_forest"):
     download_from_s3("iris_data.csv", "latest.csv")
     global model
-    model = train_model("latest.csv")
-    return {"status": "Model retrained from latest data in S3"}
+    model = train_model("latest.csv", model_type=model_type)
+    return {"status": f"Model retrained from latest data in S3 with {model_type} model"}
+
