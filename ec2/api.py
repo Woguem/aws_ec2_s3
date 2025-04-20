@@ -51,11 +51,8 @@ def upload_data(file: UploadFile = File(...)):
 def retrain(model_type : str = "random_forest"):
     download_from_s3("iris_data.csv", "latest.csv")
     global model
-<<<<<<< HEAD
     model = train_model("latest.csv", model_type=model_type)
     return {"status": f"Model retrained from latest data in S3 with {model_type} model"}
-=======
     model = train_model("latest.csv")
     return {"status": "Model retrained from latest data in S3"}
->>>>>>> d2d91a3716c1781a11ec9f888eba71425ca93ea4
 
