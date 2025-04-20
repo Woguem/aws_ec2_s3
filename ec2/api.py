@@ -49,3 +49,4 @@ def retrain():
     global model
     model = train_model("latest.csv")
     return {"status": "Model retrained from latest data in S3"}
+
